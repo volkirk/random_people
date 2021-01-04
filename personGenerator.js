@@ -1,6 +1,6 @@
 const personGenerator = {
     surnameJson: `{  
-        "count": 15,
+        "count": 16,
         "list": {
             "id_1": "Иванов",
             "id_2": "Смирнов",
@@ -17,7 +17,8 @@ const personGenerator = {
             "id_13": "Степанов",
             "id_14": "Павлов",
             "id_15": "Александров",
-            "id_16": "Морозов"
+            "id_16": "Морозов",
+            "id_17": "Дроздова"
         }
     }`,
     firstNameMaleJson: `{
@@ -36,7 +37,7 @@ const personGenerator = {
         }
     }`,
     firstNameFemaleJson: `{
-        "count": 10,
+        "count": 11,
         "list": {     
             "id_1": "Светлана",
             "id_2": "Кристина",
@@ -47,7 +48,8 @@ const personGenerator = {
             "id_7": "Марина",
             "id_8": "Маргарита",
             "id_9": "Полина",
-            "id_10": "Юлия"
+            "id_10": "Юлия",
+            "id_11": "Элина"
         }
     }`,
     thirdNameMale: `{
@@ -66,7 +68,7 @@ const personGenerator = {
         }
     }`,
     thirdNameFemale: `{
-        "count": 10,
+        "count": 11,
         "list": {     
             "id_1": "Олеговна",
             "id_2": "Павловна",
@@ -77,7 +79,56 @@ const personGenerator = {
             "id_7": "Сергеевна",
             "id_8": "Михайловна",
             "id_9": "Леодиновна",
-            "id_10": "Владимировна"
+            "id_10": "Владимировна",
+            "id_11": "Ропавка"
+        }
+    }`,
+    maleJob: `{
+        "count": 10,
+        "list": {     
+            "id_1": "Шахтер",
+            "id_2": "Солдат",
+            "id_3": "Водитель",
+            "id_4": "Слеcарь",
+            "id_5": "Охранник",
+            "id_6": "Директор Банка",
+            "id_7": "Нефтянник",
+            "id_8": "Доставщик",
+            "id_9": "Моряк",
+            "id_10": "Пилот"
+        }
+    }`,
+    femaleJob: `{
+        "count": 10,
+        "list": {     
+            "id_1": "Ткачиха",
+            "id_2": "Администратор Кафе",
+            "id_3": "Офицант",
+            "id_4": "Домохозяйка",
+            "id_5": "Врач",
+            "id_6": "Учитель",
+            "id_7": "Программист",
+            "id_8": "Продавец",
+            "id_9": "Тренер",
+            "id_10": "Менеджер",
+            "id_11": "Фотограф"
+        }
+    }`,
+    months: `{
+        "count": 12,
+        "list": {     
+            "id_1": "Января",
+            "id_2": "Февраля",
+            "id_3": "Марта",
+            "id_4": "Апреля",
+            "id_5": "Мая",
+            "id_6": "Июня",
+            "id_7": "Июля",
+            "id_8": "Августа",
+            "id_9": "Сентября",
+            "id_10": "Октября",
+            "id_11": "Ноября",
+            "id_12": "Декабря"
         }
     }`,
 
@@ -108,6 +159,12 @@ const personGenerator = {
         else 
         return this.randomValue(this.firstNameMaleJson);
     },
+    randomJob: function (){
+    if (this.person.gender=='Женщина') 
+    return this.randomValue(this.femaleJob);
+    else 
+    return this.randomValue(this.maleJob);
+    },
     randomThirdName: function(){
         if (this.person.gender=='Женщина')
         return this.randomValue(this.thirdNameFemale);
@@ -120,6 +177,16 @@ const personGenerator = {
         return this.randomValue(this.surnameJson);
 
     },
+    randomMonth: function(){
+        return this.randomValue(this.months);
+    },
+    randomDay: function() {
+        if (this.person.months==1,3,5,7,8,10,12)
+        {return this.randomIntNumber(31,1);}
+        else if (this.person.months==2)
+        {return this.randomIntNumber(28,1);}
+        else return this.randomIntNumber(30,1);
+    },
 
     getPerson: function () {
         this.person = {};
@@ -130,6 +197,9 @@ const personGenerator = {
         this.person.firstName = this.randomFirstName();
         this.person.thirdName = this.randomThirdName();
         this.person.birthYear = this.randomYear();
+        this.person.Job= this.randomJob();
+        this.person.months=this.randomMonth();
+        this.person.day=this.randomDay();
         return this.person;
     }
 };
